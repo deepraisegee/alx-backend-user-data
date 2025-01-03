@@ -2,7 +2,7 @@
 """DB module
 """
 
-import bcrypt
+# import bcrypt
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -31,11 +31,12 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """create user and save to database"""
-        user = User()
-        user.email = email
-        password = hashed_password.encode("utf-8")
-        salt = bcrypt.gensalt()
-        user.hashed_password = bcrypt.hashpw(password, salt)
+        user = User(email=email, hashed_password=hashed_password)
+        # user.email = email
+        # password = hashed_password.encode("utf-8")
+        # salt = bcrypt.gensalt()
+        # user.hashed_password = bcrypt.hashpw(password, salt)
+        # user.hashed_password = hashed_password
         # save ro db
         self._session.add(user)
         self._session.commit()
