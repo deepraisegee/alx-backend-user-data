@@ -33,7 +33,9 @@ class DB:
         """create user and save to database"""
         user = User()
         user.email = email
-        user.hashed_password = bcrypt.hashpw(hashed_password.encode(), bcrypt.gensalt())
+        password = hashed_password.encode("utf-8")
+        salt = bcrypt.gensalt()
+        user.hashed_password = bcrypt.hashpw(password, salt)
         # save ro db
         self._session.add(user)
         self._session.commit()
